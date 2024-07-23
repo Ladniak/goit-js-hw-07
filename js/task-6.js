@@ -14,13 +14,15 @@ let height = 30;
 
 const createBoxes = (amount) => {
   if (amount <= 100 && amount >= 1) {
+    const fragmentEl = document.createDocumentFragment();
     for (let index = 0; index < amount; index++) {
       const newElem = document.createElement("div");
       newElem.style.backgroundColor = getRandomHexColor();
       newElem.style.width = `${width + index * 10}px`;
       newElem.style.height = `${height + index * 10}px`;
-      divEl.append(newElem);
+      fragmentEl.appendChild(newElem);
     }
+    divEl.appendChild(fragmentEl);
   }
 }
 
@@ -28,5 +30,8 @@ const destroyBoxes = () => {
   divEl.innerHTML = '';
 }
 
-btnEl.addEventListener('click', () => createBoxes(Number(inpEl.value)));
+btnEl.addEventListener('click', () => {
+  destroyBoxes();
+  createBoxes(Number(inpEl.value));
+});
 secbtnEl.addEventListener('click', destroyBoxes);
